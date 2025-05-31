@@ -11,7 +11,7 @@ export default async function handler(req, res) {
 
   // Kirim ke Telegram
   const token = process.env.TELEGRAM_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+  const chatId = process.env.CHAT_ID;
   const text = `🛒 Pesanan Baru:\n👤 Nama: ${nama}\n🍽️ Menu: ${menu}\n🕒 Waktu: ${new Date().toLocaleString("id-ID")}`;
 
   try {
