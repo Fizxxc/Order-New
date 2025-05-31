@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   const { nama } = req.body;
-  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const token = process.env.TELEGRAM_TOKEN;
   const chatId = process.env.CHAT_ID;
 
   const waktu = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
