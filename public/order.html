@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Pesanan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h3 class="mb-4">Konfirmasi Pesanan</h3>
+    <div id="formArea"></div>
+  </div>
+
+  <script>
+    const namaUser = localStorage.getItem("user_nama");
+    const menu = localStorage.getItem("menu_dipesan");
+
+    if (!namaUser || !menu) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("formArea").innerHTML = `
+      <p><strong>Nama:</strong> ${namaUser}</p>
+      <p><strong>Menu:</strong> ${menu}</p>
+      <form id="orderForm">
+        <div class="mb-3">
+          <label>No WhatsApp</label>
+          <input type="text" class="form-control" name="wa" required>
+        </div>
+        <button type="submit" class="btn btn-success">Kirim Pesanan</button>
+      </form>
+    `;
+
+    document.getElementById("orderForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const wa = e.target.wa.value;
+      const res = await fetch("/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nama: namaUser, wa, menu })
+      });
+
+      if (res.ok) {
+        alert("Pesanan dikirim!");
+        window.location.href = "index.html";
+      } else {
+        alert("Gagal!");
+      }
+    });
+  </script>
+</body>
+</html>
